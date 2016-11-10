@@ -1,2 +1,2 @@
-# OsrmRunner
-App that run osrm engine, restart on crashes
+# ServiceRunner
+App that run another app as windwos service, restart on crashes
