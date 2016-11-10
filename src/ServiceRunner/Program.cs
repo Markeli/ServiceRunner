@@ -1,6 +1,10 @@
 ﻿using System;
 using System.Configuration;
+using NLog;
+using NLog.Config;
+using ServiceRunner.Logs.NLog;
 using Topshelf;
+using LogManager = ServiceRunner.Logs.LogManager;
 
 namespace ServiceRunner
 {
@@ -10,11 +14,13 @@ namespace ServiceRunner
         {
             var infoReader = new ServiceInfoReader();
             var serviceInfo = infoReader.ReadServiceInfo(ConfigurationManager.AppSettings);
+            
+            var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
             HostFactory.Run(x =>                                 
             {
                 x.Service<ServiceWrapper>(s =>                        
                 {
-                    s.ConstructUsing(name => new ServiceWrapper(serviceInfo.ServicePath, serviceInfo.ServiceArguments));     
+                    s.ConstructUsing(name => new ServiceWrapper(serviceInfo, logManager));     
                     s.WhenStarted(tc => tc.Start());              
                     s.WhenStopped(tc => tc.Stop());               
                 });

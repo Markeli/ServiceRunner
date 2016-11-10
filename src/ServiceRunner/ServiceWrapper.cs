@@ -1,22 +1,27 @@
 ﻿using System;
 using System.Diagnostics;
+using ServiceRunner.Logs;
 
 namespace ServiceRunner
 {
     internal class ServiceWrapper
     {
+        private readonly ServiceInfo _serviceInfo;
+        private readonly LogManager _logManager;
         private readonly string _servicePath;
         private readonly string _serviceArgs;
 
         private Process _osrmProcess;
 
-        public ServiceWrapper(string servicePath, string serviceArgs)
+        public ServiceWrapper(ServiceInfo serviceInfo, LogManager logManager)
         {
-            if (servicePath == null) throw new ArgumentNullException(nameof(servicePath));
-            if (serviceArgs == null) throw new ArgumentNullException(nameof(serviceArgs));
+            if (serviceInfo == null) throw new ArgumentNullException(nameof(serviceInfo));
+            if (logManager == null) throw new ArgumentNullException(nameof(logManager));
+            _serviceInfo = serviceInfo;
+            _logManager = logManager;
 
-            _servicePath = servicePath;
-            _serviceArgs = serviceArgs;
+            _servicePath = serviceInfo.ServicePath;
+            _serviceArgs = serviceInfo.ServiceArguments;
         }
 
         public void Start()
@@ -43,6 +48,8 @@ namespace ServiceRunner
             _osrmProcess.Exited += ProcessOnExited;
 
             _osrmProcess.Start();
+
+            _logManager.ServiceMainMainLog.Info("Service started");
         }
 
         private void ProcessOnExited(object sender, EventArgs eventArgs)
@@ -55,12 +62,16 @@ namespace ServiceRunner
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            //throw new NotImplementedException();
+            if (dataReceivedEventArgs == null) return;
+
+            _logManager.ServiceMainMainLog.Error(dataReceivedEventArgs.Data);
         }
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            //dataReceivedEventArgs.Data;
+            if (dataReceivedEventArgs == null) return;
+
+            _logManager.ServiceMainMainLog.Info(dataReceivedEventArgs.Data);
         }
 
 

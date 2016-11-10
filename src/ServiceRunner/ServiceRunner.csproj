@@ -52,19 +52,23 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="Topshelf, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Topshelf.4.0.2\lib\net452\Topshelf.dll</HintPath>
+      <HintPath>..\packages\Topshelf.4.0.3\lib\net452\Topshelf.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Topshelf.NLog, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
-      <HintPath>..\packages\Topshelf.NLog.4.0.2\lib\net452\Topshelf.NLog.dll</HintPath>
+      <HintPath>..\packages\Topshelf.NLog.4.0.3\lib\net452\Topshelf.NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Logs\ErrorLevel.cs" />
+    <Compile Include="Logs\ILogger.cs" />
+    <Compile Include="Logs\ILogSystem.cs" />
     <Compile Include="Logs\LogEntry.cs" />
     <Compile Include="Logs\Logger.cs" />
     <Compile Include="Logs\LogManager.cs" />
+    <Compile Include="Logs\NLog\NLogLogger.cs" />
+    <Compile Include="Logs\NLog\NLogSystem.cs" />
     <Compile Include="ServiceInfo.cs" />
     <Compile Include="ServiceInfoReader.cs" />
     <Compile Include="Program.cs" />
@@ -73,6 +77,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <EmbeddedResource Include="NLog.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRunnerApp\ServiceRunner.csproj", "{F63558DA-4EAD-4BAA-A884-F7027E075153}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRunner\ServiceRunner.csproj", "{F63558DA-4EAD-4BAA-A884-F7027E075153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
