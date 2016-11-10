@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Scout.Infrastructure.Logging
+namespace ServiceRunner.Logs
 {
     /// <summary>
     /// Запись в лог
@@ -73,7 +73,7 @@ namespace Scout.Infrastructure.Logging
         /// </summary>		
         /// <param name="exception">Исключение</param>
         public LogEntry(Exception exception)
-            : this(ErrorLevel.Error, (exception == null) ? String.Empty : exception.Message, exception)
+            : this(ErrorLevel.Error, exception?.Message ?? String.Empty, exception)
         {
         }
     }	

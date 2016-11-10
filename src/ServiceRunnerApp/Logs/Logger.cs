@@ -36,29 +36,29 @@ namespace ServiceRunner.Logs
 
         private LogEventInfo Convert(LogEntry logEntry)
         {
-            var logEntry = new LogEventInfo { LoggerName = Name };
+            var nlogEntry = new LogEventInfo { LoggerName = Name };
             switch (logEntry.Level)
             {
-                case (ErrorLevel.None): logEntry.Level = LogLevel.Off; break;
-                case (ErrorLevel.Trace): logEntry.Level = LogLevel.Trace; break;
-                case (ErrorLevel.Debug): logEntry.Level = LogLevel.Debug; break;
-                case (ErrorLevel.Info): logEntry.Level = LogLevel.Info; break;
-                case (ErrorLevel.Warning): logEntry.Level = LogLevel.Warn; break;
-                case (ErrorLevel.Error): logEntry.Level = LogLevel.Error; break;
-                case (ErrorLevel.Fatal): logEntry.Level = LogLevel.Fatal; break;
+                case (ErrorLevel.None): nlogEntry.Level = LogLevel.Off; break;
+                case (ErrorLevel.Trace): nlogEntry.Level = LogLevel.Trace; break;
+                case (ErrorLevel.Debug): nlogEntry.Level = LogLevel.Debug; break;
+                case (ErrorLevel.Info): nlogEntry.Level = LogLevel.Info; break;
+                case (ErrorLevel.Warning): nlogEntry.Level = LogLevel.Warn; break;
+                case (ErrorLevel.Error): nlogEntry.Level = LogLevel.Error; break;
+                case (ErrorLevel.Fatal): nlogEntry.Level = LogLevel.Fatal; break;
             }
-            logEntry.Message = logEntry.Message;
-            logEntry.TimeStamp = logEntry.TimeStamp;
-            if (logEntry.Exception != null) logEntry.Exception = logEntry.Exception;
+            nlogEntry.Message = logEntry.Message;
+            nlogEntry.TimeStamp = logEntry.TimeStamp;
+            if (nlogEntry.Exception != null) nlogEntry.Exception = logEntry.Exception;
 
             if ((logEntry.Data != null) && (logEntry.Data.Count > 0))
             {
                 foreach (var prop in logEntry.Data)
                 {
-                    logEntry.Properties.Add(prop.Key, prop.Value);
+                    nlogEntry.Properties.Add(prop.Key, prop.Value);
                 }
             }
-            return logEntry;
+            return nlogEntry;
         }
 
         /// <summary>

@@ -13,7 +13,16 @@ namespace ServiceRunner
             var arguments = appSettings["ServiceArguments"];
             var restartTimeout = int.Parse(appSettings["RestartTimeout"]);
             var restartAfterCrash = bool.Parse(appSettings["RestartAfterCrash"]);
-            return new ServiceInfo(name, displayName, description, path, arguments, restartAfterCrash, restartTimeout);
+            return new ServiceInfo
+            {
+                ServiceName = name,
+                ServiceDisplayName = displayName,
+                ServiceDescription = description,
+                ServicePath = path,
+                ServiceArguments = arguments,
+                RestartAfterCrash = restartAfterCrash,
+                RestartTimeoutMin = restartTimeout
+            };
         }
     }
 }

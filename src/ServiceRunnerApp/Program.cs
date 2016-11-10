@@ -12,9 +12,9 @@ namespace ServiceRunner
             var serviceInfo = infoReader.ReadServiceInfo(ConfigurationManager.AppSettings);
             HostFactory.Run(x =>                                 
             {
-                x.Service<ServiceRunner>(s =>                        
+                x.Service<ServiceWrapper>(s =>                        
                 {
-                    s.ConstructUsing(name => new ServiceRunner(serviceInfo.ServicePath, serviceInfo.ServiceArguments));     
+                    s.ConstructUsing(name => new ServiceWrapper(serviceInfo.ServicePath, serviceInfo.ServiceArguments));     
                     s.WhenStarted(tc => tc.Start());              
                     s.WhenStopped(tc => tc.Stop());               
                 });
@@ -33,7 +33,7 @@ namespace ServiceRunner
                     x.EnableServiceRecovery(r =>
                     {
                         r.OnCrashOnly();
-                        r.RestartService(serviceInfo.RestartTimeout);
+                        r.RestartService(serviceInfo.RestartTimeoutMin);
                     });
                 }
                 x.UseNLog();
