@@ -69,7 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Args\ArgOptions.cs" />
+    <Compile Include="Args\AppOptionsFactory.cs" />
+    <Compile Include="Args\Option.cs" />
+    <Compile Include="Args\ArgumentParser.cs" />
+    <Compile Include="Args\SupportedOptions.cs" />
     <Compile Include="Logs\ErrorLevel.cs" />
     <Compile Include="Logs\ILogger.cs" />
     <Compile Include="Logs\ILogSystem.cs" />
@@ -78,8 +81,9 @@
     <Compile Include="Logs\LogManager.cs" />
     <Compile Include="Logs\NLog\NLogLogger.cs" />
     <Compile Include="Logs\NLog\NLogSystem.cs" />
+    <Compile Include="Service\ServiceBootstraper.cs" />
     <Compile Include="Service\ServiceInfo.cs" />
-    <Compile Include="Service\ServiceInfoReader.cs" />
+    <Compile Include="Service\ServiceInfoFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\Service.cs" />
@@ -89,13 +93,16 @@
     <EmbeddedResource Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Example\service.json">
+    <EmbeddedResource Include="Examples\osrm.service">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Examples\service.service">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Args\TopShelfUsage.txt" />
+    <EmbeddedResource Include="Args\Usage.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

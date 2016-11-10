@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
@@ -14,57 +16,41 @@ namespace ServiceRunner
 {
     class Program
     {
+        private const int FailureExitCode = -1;
+
         static void Main(string[] args)
         {
             var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
-            var options = new ArgOptions();
-            var serviceInfoPath = String.Empty;
-            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            var options = ArgumentParser.Parse(args);
+            string serviceInfoPath;
+            if (ArgumentParser.IsValid(options.Values.ToList()))
             {
-                //"Example/service.json"
-                serviceInfoPath = options.ServiceInfoPath;
+                var serviceOption = options[SupportedOptions.Service];
+                serviceInfoPath = serviceOption.Value;
             }
             else
             {
-                logManager.MainLog.Warning(options.GetUsage());
+                logManager.MainLog.Warning("Incorrect call. See usage");
+                logManager.MainLog.Warning(AppOptionsFactory.GetUsage());
                 return;
             }
-            serviceInfoPath = "Example/service.json";
 
-        var infoReader = new ServiceInfoReader();
-
-            var serviceInfo = infoReader.ReadServiceInfo(serviceInfoPath);
-            
-            HostFactory.Run(x =>                                 
+            try
             {
-                x.Service<Service.Service>(s =>                        
-                {
-                    s.ConstructUsing(name => new Service.Service(serviceInfo, logManager));     
-                    s.WhenStarted(tc => tc.Start());              
-                    s.WhenStopped(tc => tc.Stop());               
-                });
-                x.RunAsLocalSystem();                            
+                var serficeInfoFolder = ConfigurationManager.AppSettings["ServiceInfoFolder"];
+                var infoReader = new ServiceInfoFactory(serficeInfoFolder);
+                var serviceInfo = infoReader.GetServiceInfo(serviceInfoPath);
 
-                x.SetDescription(serviceInfo.ServiceDescription);        
-                x.SetDisplayName(serviceInfo.ServiceDisplayName);                       
-                x.SetServiceName(serviceInfo.ServiceName);                       
-                x.OnException(ex =>
-                {
-                    // log unhandled exception
-                    logManager.ExceptionLog.Error(ex);
-                });
+                var bootstraper = new ServiceBootstraper(logManager);
+                bootstraper.Start(serviceInfo);
 
-                if (serviceInfo.RestartAfterCrash)
-                {
-                    x.EnableServiceRecovery(r =>
-                    {
-                        r.OnCrashOnly();
-                        // позволяет перезапускать сервис только после первого падения
-                        r.RestartService(serviceInfo.RestartTimeoutMin);
-                    });
-                }
-                x.UseNLog();
-            });
+            }
+            catch (Exception ex)
+            {
+                logManager.ExceptionLog.Error(ex);
+                Environment.ExitCode = FailureExitCode;
+            }
+
         }
     }
 }

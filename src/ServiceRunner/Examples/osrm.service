@@ -1,0 +1,10 @@
+﻿{
+  "ServiceName": "OSRM control service",
+  "ServiceSystemName": "OSRMCS",
+  "ServiceDescription": "Service to control OSRM engine, start, stop, restart on crashes",
+  "ServicePath": "d:\\Temp\\ChildProcessTest.exe",
+  "ServiceArguments": "",
+  "RestartTimeout": 0,
+  "RestartAfterCrash": "true",
+  "RestartCountOnFail": 3
+}

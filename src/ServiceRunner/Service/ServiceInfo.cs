@@ -10,7 +10,7 @@
         /// <summary>
         /// Название сервиса, которое будет отображаться в списке процессов
         /// </summary>
-        public string ServiceDisplayName { get; set; }
+        public string ServiceSystemName { get; set; }
 
         /// <summary>
         /// Описание сервиса

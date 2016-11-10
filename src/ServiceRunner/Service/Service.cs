@@ -51,10 +51,16 @@ namespace ServiceRunner.Service
         private void ProcessOnExited(object sender, EventArgs eventArgs)
         {
             // штатное завершение
-            if (_osrmProcess.ExitCode == 0) return;
+            if (_osrmProcess.ExitCode == 0)
+            {
+                _logManager.MainLog.Info("Service normally terminated");
+                return;
+            }
 
+            _logManager.MainLog.Error("Service crashed");
             if (_serviceInfo.RestartAfterCrash)
             {
+                _logManager.MainLog.Info("Trying to restart service...");
                 if (_failsCount < _serviceInfo.RestartCountOnFail)
                 {
                     _failsCount++;
@@ -63,6 +69,7 @@ namespace ServiceRunner.Service
                     return;
                 }
             }
+            _logManager.MainLog.Fatal("Can not restart service");
             throw new Exception("Can not restart service");
         }
 
