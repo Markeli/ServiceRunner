@@ -1,4 +1,4 @@
-﻿namespace ServiceRunner
+﻿namespace ServiceRunner.Service
 {
     internal class ServiceInfo
     {
@@ -36,5 +36,10 @@
         /// Таймаут в минутах перезапуска сервиса после падения
         /// </summary>
         public int RestartTimeoutMin { get; set; }
+
+        /// <summary>
+        /// Количество попыток перезапустить сервис после ошибки
+        /// </summary>
+        public int RestartCountOnFail { get; set; }
     }
 }

@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Configuration;
+using System.IO;
+using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using ServiceRunner.Logs.NLog;
+using ServiceRunner.Service;
 using Topshelf;
 using LogManager = ServiceRunner.Logs.LogManager;
 
@@ -12,10 +15,12 @@ namespace ServiceRunner
     {
         static void Main()
         {
-            var infoReader = new ServiceInfoReader();
-            var serviceInfo = infoReader.ReadServiceInfo(ConfigurationManager.AppSettings);
-            
             var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
+
+            var infoReader = new ServiceInfoReader();
+
+            var serviceInfo = infoReader.ReadServiceInfo("Example/service.json");
+            
             HostFactory.Run(x =>                                 
             {
                 x.Service<ServiceWrapper>(s =>                        

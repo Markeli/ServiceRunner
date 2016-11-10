@@ -1,0 +1,10 @@
+﻿{
+    "ServiceName": "OSRM control service",
+    "ServiceDisplayName": "OSRMCS",
+    "ServiceDescription": "Service to control OSRM engine, start, stop, restart on crashes",
+    "ServicePath": "d:\\Markelow\\Development\\Git\\ServiceRunner\\test\\ChildProcessTest\\bin\\Debug\\ChildProcessTest.vshost.exe",
+    "ServiceArguments": "",
+    "RestartTimeout": 0,
+    "RestartAfterCrash": "true",
+    "RestartCountOnFail": 3
+}

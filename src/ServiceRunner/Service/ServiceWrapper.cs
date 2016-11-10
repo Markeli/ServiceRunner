@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using ServiceRunner.Logs;
 
-namespace ServiceRunner
+namespace ServiceRunner.Service
 {
     internal class ServiceWrapper
     {
