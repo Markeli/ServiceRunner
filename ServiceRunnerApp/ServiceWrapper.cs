@@ -3,14 +3,14 @@ using System.Diagnostics;
 
 namespace ServiceRunner
 {
-    internal class ServiceRunner
+    internal class ServiceWrapper
     {
         private readonly string _servicePath;
         private readonly string _serviceArgs;
 
         private Process _osrmProcess;
 
-        public ServiceRunner(string servicePath, string serviceArgs)
+        public ServiceWrapper(string servicePath, string serviceArgs)
         {
             if (servicePath == null) throw new ArgumentNullException(nameof(servicePath));
             if (serviceArgs == null) throw new ArgumentNullException(nameof(serviceArgs));
@@ -49,7 +49,7 @@ namespace ServiceRunner
         {
             if (_osrmProcess.ExitCode != 0)
             {
-                throw new ServiceRunnerException();
+                throw new Exception();
             }
         }
 
