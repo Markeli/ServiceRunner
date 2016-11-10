@@ -4,24 +4,22 @@ using ServiceRunner.Logs;
 
 namespace ServiceRunner.Service
 {
-    internal class ServiceWrapper
+    internal class Service
     {
         private readonly ServiceInfo _serviceInfo;
         private readonly LogManager _logManager;
-        private readonly string _servicePath;
-        private readonly string _serviceArgs;
 
         private Process _osrmProcess;
 
-        public ServiceWrapper(ServiceInfo serviceInfo, LogManager logManager)
+        private int _failsCount;
+
+        public Service(ServiceInfo serviceInfo, LogManager logManager)
         {
             if (serviceInfo == null) throw new ArgumentNullException(nameof(serviceInfo));
             if (logManager == null) throw new ArgumentNullException(nameof(logManager));
             _serviceInfo = serviceInfo;
             _logManager = logManager;
-
-            _servicePath = serviceInfo.ServicePath;
-            _serviceArgs = serviceInfo.ServiceArguments;
+            
         }
 
         public void Start()
@@ -30,8 +28,8 @@ namespace ServiceRunner.Service
             {
                 StartInfo =
                 {
-                    FileName = _servicePath,
-                    Arguments = _serviceArgs,
+                    FileName = _serviceInfo.ServicePath,
+                    Arguments = _serviceInfo.ServiceArguments,
                     UseShellExecute = false,
                     CreateNoWindow = false,
                     WindowStyle = ProcessWindowStyle.Hidden,
@@ -48,23 +46,31 @@ namespace ServiceRunner.Service
             _osrmProcess.Exited += ProcessOnExited;
 
             _osrmProcess.Start();
-
-            _logManager.ServiceMainMainLog.Info("Service started");
         }
 
         private void ProcessOnExited(object sender, EventArgs eventArgs)
         {
-            if (_osrmProcess.ExitCode != 0)
+            // штатное завершение
+            if (_osrmProcess.ExitCode == 0) return;
+
+            if (_serviceInfo.RestartAfterCrash)
             {
-                throw new Exception();
+                if (_failsCount < _serviceInfo.RestartCountOnFail)
+                {
+                    _failsCount++;
+                    Stop();
+                    Start();
+                    return;
+                }
             }
+            throw new Exception("Can not restart service");
         }
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
             if (dataReceivedEventArgs == null) return;
 
-            _logManager.ServiceMainMainLog.Error(dataReceivedEventArgs.Data);
+            _logManager.ServiceExceptionLog.Error(dataReceivedEventArgs.Data);
         }
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)

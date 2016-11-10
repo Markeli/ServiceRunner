@@ -4,6 +4,7 @@ using System.IO;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
+using ServiceRunner.Args;
 using ServiceRunner.Logs.NLog;
 using ServiceRunner.Service;
 using Topshelf;
@@ -13,19 +14,32 @@ namespace ServiceRunner
 {
     class Program
     {
-        static void Main()
+        static void Main(string[] args)
         {
             var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
+            var options = new ArgOptions();
+            var serviceInfoPath = String.Empty;
+            if (CommandLine.Parser.Default.ParseArguments(args, options))
+            {
+                //"Example/service.json"
+                serviceInfoPath = options.ServiceInfoPath;
+            }
+            else
+            {
+                logManager.MainLog.Warning(options.GetUsage());
+                return;
+            }
+            serviceInfoPath = "Example/service.json";
 
-            var infoReader = new ServiceInfoReader();
+        var infoReader = new ServiceInfoReader();
 
-            var serviceInfo = infoReader.ReadServiceInfo("Example/service.json");
+            var serviceInfo = infoReader.ReadServiceInfo(serviceInfoPath);
             
             HostFactory.Run(x =>                                 
             {
-                x.Service<ServiceWrapper>(s =>                        
+                x.Service<Service.Service>(s =>                        
                 {
-                    s.ConstructUsing(name => new ServiceWrapper(serviceInfo, logManager));     
+                    s.ConstructUsing(name => new Service.Service(serviceInfo, logManager));     
                     s.WhenStarted(tc => tc.Start());              
                     s.WhenStopped(tc => tc.Stop());               
                 });
@@ -36,7 +50,8 @@ namespace ServiceRunner
                 x.SetServiceName(serviceInfo.ServiceName);                       
                 x.OnException(ex =>
                 {
-                    Console.WriteLine(ex.Message);
+                    // log unhandled exception
+                    logManager.ExceptionLog.Error(ex);
                 });
 
                 if (serviceInfo.RestartAfterCrash)
@@ -44,6 +59,7 @@ namespace ServiceRunner
                     x.EnableServiceRecovery(r =>
                     {
                         r.OnCrashOnly();
+                        // позволяет перезапускать сервис только после первого падения
                         r.RestartService(serviceInfo.RestartTimeoutMin);
                     });
                 }
