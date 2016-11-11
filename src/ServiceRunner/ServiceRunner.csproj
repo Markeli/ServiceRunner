@@ -34,6 +34,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -65,6 +69,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Args\AppOptionsFactory.cs" />
+    <Compile Include="Args\Option.cs" />
+    <Compile Include="Args\ArgumentParser.cs" />
+    <Compile Include="Args\SupportedOptions.cs" />
     <Compile Include="Logs\ErrorLevel.cs" />
     <Compile Include="Logs\ILogger.cs" />
     <Compile Include="Logs\ILogSystem.cs" />
@@ -73,21 +81,28 @@
     <Compile Include="Logs\LogManager.cs" />
     <Compile Include="Logs\NLog\NLogLogger.cs" />
     <Compile Include="Logs\NLog\NLogSystem.cs" />
+    <Compile Include="Service\ServiceBootstraper.cs" />
     <Compile Include="Service\ServiceInfo.cs" />
-    <Compile Include="Service\ServiceInfoReader.cs" />
+    <Compile Include="Service\ServiceInfoFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\ServiceWrapper.cs" />
+    <Compile Include="Service\Service.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <EmbeddedResource Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <EmbeddedResource Include="Example\service.json">
+    <EmbeddedResource Include="Examples\osrm.service">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Examples\service.service">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Args\Usage.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
