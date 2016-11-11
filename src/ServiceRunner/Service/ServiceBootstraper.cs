@@ -31,9 +31,9 @@ namespace ServiceRunner.Service
                 }
                 x.ApplyCommandLine();
 
-                x.Service<Service>(s =>
+                x.Service<ServiceRunner>(s =>
                 {
-                    s.ConstructUsing(name => new Service(serviceInfo, _logManager));
+                    s.ConstructUsing(name => new ServiceRunner(serviceInfo, _logManager));
                     s.WhenStarted(tc => tc.Start());
                     s.WhenStopped(tc => tc.Stop());
                 });

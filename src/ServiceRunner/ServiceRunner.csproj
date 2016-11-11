@@ -86,7 +86,7 @@
     <Compile Include="Service\ServiceInfoFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service\Service.cs" />
+    <Compile Include="Service\ServiceRunner.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

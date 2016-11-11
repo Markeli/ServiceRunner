@@ -4,7 +4,7 @@ using ServiceRunner.Logs;
 
 namespace ServiceRunner.Service
 {
-    internal class Service
+    internal class ServiceRunner : IDisposable
     {
         private readonly ServiceInfo _serviceInfo;
         private readonly LogManager _logManager;
@@ -13,7 +13,7 @@ namespace ServiceRunner.Service
 
         private int _failsCount;
 
-        public Service(ServiceInfo serviceInfo, LogManager logManager)
+        public ServiceRunner(ServiceInfo serviceInfo, LogManager logManager)
         {
             if (serviceInfo == null) throw new ArgumentNullException(nameof(serviceInfo));
             if (logManager == null) throw new ArgumentNullException(nameof(logManager));
@@ -46,6 +46,8 @@ namespace ServiceRunner.Service
             _osrmProcess.Exited += ProcessOnExited;
 
             _osrmProcess.Start();
+            _osrmProcess.BeginErrorReadLine();
+            _osrmProcess.BeginOutputReadLine();
         }
 
         private void ProcessOnExited(object sender, EventArgs eventArgs)
@@ -60,12 +62,13 @@ namespace ServiceRunner.Service
             _logManager.MainLog.Error("Service crashed");
             if (_serviceInfo.RestartAfterCrash)
             {
-                _logManager.MainLog.Info("Trying to restart service...");
                 if (_failsCount < _serviceInfo.RestartCountOnFail)
                 {
                     _failsCount++;
+                    _logManager.MainLog.Info($"Trying to restart service ({_failsCount}/{_serviceInfo.RestartCountOnFail})... ");
                     Stop();
                     Start();
+                    _logManager.MainLog.Info("Service successfully restarted");
                     return;
                 }
             }
@@ -75,15 +78,15 @@ namespace ServiceRunner.Service
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            if (dataReceivedEventArgs == null) return;
+            if (String.IsNullOrEmpty(dataReceivedEventArgs?.Data)) return;
 
             _logManager.ServiceExceptionLog.Error(dataReceivedEventArgs.Data);
         }
 
         private void ProcessOnOutputDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)
         {
-            if (dataReceivedEventArgs == null) return;
-
+            if (String.IsNullOrEmpty(dataReceivedEventArgs?.Data)) return;
+            
             _logManager.ServiceMainMainLog.Info(dataReceivedEventArgs.Data);
         }
 
@@ -91,6 +94,11 @@ namespace ServiceRunner.Service
         public void Stop()
         {
             _osrmProcess?.Close();
+        }
+
+        public void Dispose()
+        {
+            Stop();
         }
     }
 }
