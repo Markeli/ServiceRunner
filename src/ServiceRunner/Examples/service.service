@@ -1,0 +1,10 @@
+﻿{
+  "ServiceName": "Human readable service name",
+  "ServiceSystemName": "System service name",
+  "ServiceDescription": "Service description",
+  "ServicePath": "path to exe",
+  "ServiceArguments": "args of exe",
+  "RestartTimeout": minutes (integer) between attempts to restart,
+  "RestartAfterCrash": need to restart after crahs (bool),
+  "RestartCountOnFail": maximum count (integer) of restart attempts 
+}

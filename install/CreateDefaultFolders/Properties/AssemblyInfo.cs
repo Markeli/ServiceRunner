@@ -1,14 +1,15 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TopShelfTest")]
+[assembly: AssemblyTitle("CreateDefaultFolders")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("TopShelfTest")]
+[assembly: AssemblyProduct("CreateDefaultFolders")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("f63558da-4ead-4baa-a884-f7027e075153")]
+[assembly: Guid("1ac3e678-10ad-496c-ac6a-e72e11d855d2")]
 
 // Version information for an assembly consists of the following four values:
 //

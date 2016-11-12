@@ -1,11 +1,11 @@
 ﻿using System;
-using NLog;
 
 namespace ServiceRunner.Logs
 {
     internal class Logger 
     {
-        private readonly NLog.Logger _logger;
+        private readonly ILogger _logger;
+        private readonly ILogSystem _factory;
         private readonly object _locker = new object();
 
         /// <summary>
@@ -16,10 +16,14 @@ namespace ServiceRunner.Logs
         /// <summary>
         /// Логгер
         /// </summary>
+        /// <param name="factory"></param>
         /// <param name="loggerName">Имя лога.</param>
-        internal Logger(string loggerName = null)
+        internal Logger(ILogSystem factory, string loggerName = null)
         {
+            if (factory == null) throw new ArgumentNullException(nameof(factory));
+
             Name = loggerName;
+            _logger = factory.CreateLogger(Name);
         }
 
         /// <summary>
@@ -30,37 +34,10 @@ namespace ServiceRunner.Logs
         {
             lock (_locker)
             {
-                _logger.Log(Convert(logEntry));
+                _logger.Log(logEntry);
             }
         }
-
-        private LogEventInfo Convert(LogEntry logEntry)
-        {
-            var logEntry = new LogEventInfo { LoggerName = Name };
-            switch (logEntry.Level)
-            {
-                case (ErrorLevel.None): logEntry.Level = LogLevel.Off; break;
-                case (ErrorLevel.Trace): logEntry.Level = LogLevel.Trace; break;
-                case (ErrorLevel.Debug): logEntry.Level = LogLevel.Debug; break;
-                case (ErrorLevel.Info): logEntry.Level = LogLevel.Info; break;
-                case (ErrorLevel.Warning): logEntry.Level = LogLevel.Warn; break;
-                case (ErrorLevel.Error): logEntry.Level = LogLevel.Error; break;
-                case (ErrorLevel.Fatal): logEntry.Level = LogLevel.Fatal; break;
-            }
-            logEntry.Message = logEntry.Message;
-            logEntry.TimeStamp = logEntry.TimeStamp;
-            if (logEntry.Exception != null) logEntry.Exception = logEntry.Exception;
-
-            if ((logEntry.Data != null) && (logEntry.Data.Count > 0))
-            {
-                foreach (var prop in logEntry.Data)
-                {
-                    logEntry.Properties.Add(prop.Key, prop.Value);
-                }
-            }
-            return logEntry;
-        }
-
+        
         /// <summary>
         /// Записать в лог
         /// </summary>

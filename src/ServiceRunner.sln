@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChildProcessTest", "ChildProcessTest\ChildProcessTest.csproj", "{B807885C-A872-4B63-8216-D2973A694D5B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRunnerApp\ServiceRunner.csproj", "{F63558DA-4EAD-4BAA-A884-F7027E075153}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunner", "ServiceRunner\ServiceRunner.csproj", "{F63558DA-4EAD-4BAA-A884-F7027E075153}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B807885C-A872-4B63-8216-D2973A694D5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B807885C-A872-4B63-8216-D2973A694D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B807885C-A872-4B63-8216-D2973A694D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B807885C-A872-4B63-8216-D2973A694D5B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F63558DA-4EAD-4BAA-A884-F7027E075153}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F63558DA-4EAD-4BAA-A884-F7027E075153}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F63558DA-4EAD-4BAA-A884-F7027E075153}.Release|Any CPU.ActiveCfg = Release|Any CPU
