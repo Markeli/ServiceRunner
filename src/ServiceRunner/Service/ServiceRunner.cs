@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using ServiceRunner.Logs;
+using ServiceRunner.Properties;
 
 namespace ServiceRunner.Service
 {
@@ -55,25 +56,25 @@ namespace ServiceRunner.Service
             // штатное завершение
             if (_osrmProcess.ExitCode == 0)
             {
-                _logManager.MainLog.Info("Service normally terminated");
+                _logManager.MainLog.Info(Resource.ServiceRunner_ServiceNormalyTerminated);
                 return;
             }
 
-            _logManager.MainLog.Error("Service crashed");
+            _logManager.MainLog.Error(Resource.ServiceRunner_ServiceCrashed);
             if (_serviceInfo.RestartAfterCrash)
             {
                 if (_failsCount < _serviceInfo.RestartCountOnFail)
                 {
                     _failsCount++;
-                    _logManager.MainLog.Info($"Trying to restart service ({_failsCount}/{_serviceInfo.RestartCountOnFail})... ");
+                    _logManager.MainLog.Info(string.Format(Resource.ServiceRunner_TryingRestartMessageMask, _failsCount, _serviceInfo.RestartCountOnFail));
                     Stop();
                     Start();
-                    _logManager.MainLog.Info("Service successfully restarted");
+                    _logManager.MainLog.Info(Resource.ServiceRunner_ServiceSuccessfullyRestarted);
                     return;
                 }
             }
-            _logManager.MainLog.Fatal("Can not restart service");
-            throw new Exception("Can not restart service");
+            _logManager.MainLog.Fatal(Resource.ServiceRunner_FailedToRestartService);
+            throw new Exception(Resource.ServiceRunner_FailedToRestartService);
         }
 
         private void ProcessOnErrorDataReceived(object sender, DataReceivedEventArgs dataReceivedEventArgs)

@@ -1,37 +1,36 @@
-﻿ServiceRunner.exe  -service:serviceName serviceName [verb] [-option:value] 
+﻿ServiceRunner  -service:serviceName [verb] [-option:value] 
 	
-	-service			Path to service info config or service name, if service config placed in default config folder (see ServiceRunner app.config to details)
+    -help             Выводит подсказку
+
+    -service             (Обязателен) Путь к файлу конфигурации сервиса или названия сервиса, если конфигурация находится в стандартном каталоге (путь к каталогу задается в ServiceRunner.exe.config) 
 	
-    run                 Runs the service from the command line (default)
+    run                 Запускает сервис как консольное приложение (по умолчанию)
 
-    install             Installs the service
+    install             Региструриует сервис как службу Windows
 
-      --autostart       The service should start automatically (default)
-      --disabled        The service should be set to disabled
-      --manual          The service should be started manually
-      --delayed         The service should start automatically (delayed)
-      -instance         An instance name if registering the service
-                        multiple times
+      --autostart       Запуск службы автоматически (по умолчанию)
+      --disabled        Служба отключена
+      --manual          Запуск службы вручную
+      --delayed         Запуск службы с задержкой 
+      -instance         Название сервиса, который может устанавливаться много раз
 
-    start               Starts the service if it is not already running
+    start               Запускает сервис, если он еще не запущен
       
-    stop                Stops the service if it is running
+    stop                Останаливаетс сервис, если он запущен
 
-    uninstall           Uninstalls the service
+    uninstall           Удаляет сервис из служб Windows
 
-Examples:
+Примеры:
 
     service install -service:osrm
-        Installs the service into the service control manager using service name for service in default folder
+        Регистрирует сервис по его имени (конфигурационный файл находится в каталоге для файлов конфигурация)
 
 		
     service install -service:'c:/temp/osrm.service'
-        Installs the service into the service control manager using path to service config
+        Регистрирует сервис по конфигурационному файлу, к которому указан путь
 		
     service uninstall -service:osrm
-        Uninstalls the service
+        Разрегистрирует сервис
 
     service install -instance:001 -service:osrm
-        Installs the service, appending the instance name to the service name
-        so that the service can be installed multiple times. You may need to
-        tweak the log4net.config to make this play nicely with the log files.
+        Регистрирует сервис с заданным именем

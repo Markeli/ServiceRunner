@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ServiceRunner.Args
+﻿namespace ServiceRunner.Args
 {
     internal class Option
     {
@@ -13,5 +7,9 @@ namespace ServiceRunner.Args
         public string Value { get; set; }
 
         public bool IsRequired { get; set; }
+
+        public bool IsFlag { get; set; }
+
+        public bool IsSetted { get; set; }
     }
 }

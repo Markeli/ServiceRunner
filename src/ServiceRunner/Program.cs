@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using Newtonsoft.Json;
-using NLog;
-using NLog.Config;
 using ServiceRunner.Args;
 using ServiceRunner.Logs.NLog;
+using ServiceRunner.Properties;
 using ServiceRunner.Service;
-using Topshelf;
 using LogManager = ServiceRunner.Logs.LogManager;
 
 namespace ServiceRunner
@@ -22,6 +17,14 @@ namespace ServiceRunner
         {
             var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
             var options = ArgumentParser.Parse(args);
+
+            var helpOption = options[SupportedOptions.Help];
+            if (helpOption.IsSetted)
+            {
+                logManager.MainLog.Info(AppOptionsFactory.GetUsage());
+                return;
+            }
+
             string serviceInfoPath;
             if (ArgumentParser.IsValid(options.Values.ToList()))
             {
@@ -30,7 +33,7 @@ namespace ServiceRunner
             }
             else
             {
-                logManager.MainLog.Warning("Incorrect call. See usage");
+                logManager.MainLog.Warning(Resource.Program_IncorrectArgumentsNeedUsageMessage);
                 logManager.MainLog.Warning(AppOptionsFactory.GetUsage());
                 return;
             }

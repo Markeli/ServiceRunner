@@ -81,6 +81,11 @@
     <Compile Include="Logs\LogManager.cs" />
     <Compile Include="Logs\NLog\NLogLogger.cs" />
     <Compile Include="Logs\NLog\NLogSystem.cs" />
+    <Compile Include="Properties\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
     <Compile Include="Service\ServiceBootstraper.cs" />
     <Compile Include="Service\ServiceInfo.cs" />
     <Compile Include="Service\ServiceInfoFactory.cs" />
@@ -89,6 +94,10 @@
     <Compile Include="Service\ServiceRunner.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <None Include="App.config" />
     <EmbeddedResource Include="NLog.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

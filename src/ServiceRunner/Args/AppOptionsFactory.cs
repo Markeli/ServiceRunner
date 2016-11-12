@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ServiceRunner.Args
 {
@@ -17,7 +13,14 @@ namespace ServiceRunner.Args
             options.Add(new Option
             {
                 IsRequired = true,
+                IsFlag = false,
                 Name = SupportedOptions.Service
+            });
+            options.Add(new Option
+            {
+                IsRequired = false,
+                IsFlag = true,
+                Name = SupportedOptions.Help
             });
 
             return options;
