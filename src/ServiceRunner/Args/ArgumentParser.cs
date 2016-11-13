@@ -10,24 +10,17 @@ namespace ServiceRunner.Args
         public static Dictionary<string, Option> Parse(string[] args)
         {
             var options = AppOptionsFactory.GetAppOptions();
-            foreach (var argument in args)
+            for (var i =0; i < args.Length; ++i)
             {
                 foreach (var option in options)
                 {
-                    var regex = new Regex(
-                        option.IsFlag
-                        ? $"-{option.Name}"
-                        : $"-{option.Name}:(('.+')|([^ -]+))");
-                    var match = regex.Match(argument);
-                    if (!match.Success) continue;
+                    if (!String.Equals(args[i], $"-{option.Name}")) continue;
 
                     if (!option.IsFlag)
                     {
-                        var value = match.Groups[1];
-                        option.Value = value.Value;
+                        option.Value = args[++i];
                     }
                     option.IsSetted = true;
-
                 }
             }
 

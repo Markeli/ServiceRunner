@@ -15,6 +15,8 @@ namespace ServiceRunner
 
         static void Main(string[] args)
         {
+            System.IO.Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+
             var logManager = new LogManager(NLogSystem.CreateByConfig("NLog.config"));
             var options = ArgumentParser.Parse(args);
 
@@ -45,7 +47,7 @@ namespace ServiceRunner
                 var serviceInfo = infoReader.GetServiceInfo(serviceInfoPath);
 
                 var bootstraper = new ServiceBootstraper(logManager);
-                bootstraper.Start(serviceInfo);
+                bootstraper.Start(serviceInfo, options.Values.ToList());
 
             }
             catch (Exception ex)

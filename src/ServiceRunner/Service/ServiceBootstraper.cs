@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using ServiceRunner.Args;
 using ServiceRunner.Logs;
 using Topshelf;
+using Topshelf.StartParameters;
 
 namespace ServiceRunner.Service
 {
@@ -16,17 +18,24 @@ namespace ServiceRunner.Service
             _logManager = logManager;
         }
 
-        public void Start(ServiceInfo serviceInfo)
+        public void Start(ServiceInfo serviceInfo, List<Option> serviceOptions)
         {
             HostFactory.Run(x =>
             {
+                x.EnableStartParameters();
+
                  // для поддержки вызова сервиса, чтобы нормально отрабатывал аргумент
-                var options = AppOptionsFactory.GetAppOptions();
-                foreach (var option in options)
+                foreach (var option in serviceOptions)
                 {
                     x.AddCommandLineDefinition(option.Name, service =>
                     {
 
+                    });
+                    if (option.IsFlag) continue;
+
+                    x.WithStartParameter(option.Name, option.Value, a =>
+                    {
+                        _logManager.MainLog.Info($"Adding support for service parameter: {option.Name}, value: {option.Value}");
                     });
                 }
                 x.ApplyCommandLine();
@@ -34,11 +43,14 @@ namespace ServiceRunner.Service
                 x.Service<ServiceRunner>(s =>
                 {
                     s.ConstructUsing(name => new ServiceRunner(serviceInfo, _logManager));
-                    s.WhenStarted(tc => tc.Start());
+                    s.WhenStarted((tc, hostControl) =>
+                    {
+                        tc.Start(hostControl);
+                        return true;
+                    });
                     s.WhenStopped(tc => tc.Stop());
                 });
-                x.RunAsLocalSystem();
-
+                x.RunAsLocalService();
                 x.SetDescription(serviceInfo.ServiceDescription);
                 x.SetDisplayName(serviceInfo.ServiceSystemName);
                 x.SetServiceName(serviceInfo.ServiceName);
@@ -59,6 +71,11 @@ namespace ServiceRunner.Service
                 }
                 x.UseNLog();
             });
+        }
+
+        private void ProcessNormallyExited(object sender, EventArgs eventArgs)
+        {
+            throw new NotImplementedException();
         }
     }
 }
