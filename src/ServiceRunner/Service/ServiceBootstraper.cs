@@ -43,7 +43,11 @@ namespace ServiceRunner.Service
                 x.Service<ServiceRunner>(s =>
                 {
                     s.ConstructUsing(name => new ServiceRunner(serviceInfo, _logManager));
-                    s.WhenStarted(tc => tc.Start());
+                    s.WhenStarted((tc, hostControl) =>
+                    {
+                        tc.Start(hostControl);
+                        return true;
+                    });
                     s.WhenStopped(tc => tc.Stop());
                 });
                 x.RunAsLocalService();
@@ -67,6 +71,11 @@ namespace ServiceRunner.Service
                 }
                 x.UseNLog();
             });
+        }
+
+        private void ProcessNormallyExited(object sender, EventArgs eventArgs)
+        {
+            throw new NotImplementedException();
         }
     }
 }

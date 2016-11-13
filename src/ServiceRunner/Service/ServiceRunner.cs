@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using ServiceRunner.Logs;
 using ServiceRunner.Properties;
+using Topshelf;
 
 namespace ServiceRunner.Service
 {
@@ -13,8 +14,7 @@ namespace ServiceRunner.Service
         private Process _osrmProcess;
 
         private int _failsCount;
-
-        //todo service stoper
+        private HostControl _hostControl;
 
 
         public ServiceRunner(ServiceInfo serviceInfo, LogManager logManager)
@@ -26,7 +26,14 @@ namespace ServiceRunner.Service
             
         }
 
-        public void Start()
+        public void Start(HostControl hostControl)
+        {
+            if (hostControl == null) throw new ArgumentNullException(nameof(hostControl));
+            _hostControl = hostControl;
+            Start();
+        }
+
+        private void Start()
         {
             _osrmProcess = new Process
             {
@@ -42,7 +49,7 @@ namespace ServiceRunner.Service
                 },
                 EnableRaisingEvents = true
             };
-            
+
             _osrmProcess.OutputDataReceived += ProcessOnOutputDataReceived;
             _osrmProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
             _osrmProcess.Exited += ProcessOnExited;
@@ -58,6 +65,7 @@ namespace ServiceRunner.Service
             if (_osrmProcess.ExitCode == 0)
             {
                 _logManager.MainLog.Info(Resource.ServiceRunner_ServiceNormalyTerminated);
+                _hostControl?.Stop();
                 return;
             }
 
