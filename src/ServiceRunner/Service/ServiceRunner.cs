@@ -14,6 +14,9 @@ namespace ServiceRunner.Service
 
         private int _failsCount;
 
+        //todo service stoper
+
+
         public ServiceRunner(ServiceInfo serviceInfo, LogManager logManager)
         {
             if (serviceInfo == null) throw new ArgumentNullException(nameof(serviceInfo));
@@ -39,9 +42,7 @@ namespace ServiceRunner.Service
                 },
                 EnableRaisingEvents = true
             };
-
-
-
+            
             _osrmProcess.OutputDataReceived += ProcessOnOutputDataReceived;
             _osrmProcess.ErrorDataReceived += ProcessOnErrorDataReceived;
             _osrmProcess.Exited += ProcessOnExited;
