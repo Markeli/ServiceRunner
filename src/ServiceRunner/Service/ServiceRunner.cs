@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using ServiceRunner.Logs;
 using ServiceRunner.Properties;
 using Topshelf;
@@ -35,6 +36,8 @@ namespace ServiceRunner.Service
 
         private void Start()
         {
+            var workingDirectory = Path.GetDirectoryName(_serviceInfo.ServicePath) 
+                ?? AppDomain.CurrentDomain.BaseDirectory;
             _osrmProcess = new Process
             {
                 StartInfo =
@@ -45,7 +48,8 @@ namespace ServiceRunner.Service
                     CreateNoWindow = false,
                     WindowStyle = ProcessWindowStyle.Hidden,
                     RedirectStandardOutput = true,
-                    RedirectStandardError = true
+                    RedirectStandardError = true,
+                    WorkingDirectory = workingDirectory
                 },
                 EnableRaisingEvents = true
             };

@@ -57,18 +57,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_7AC36E37102946039AA0EA3E57079857"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9235EDF9343957784E0FBBFFB46B958C"
-        "OwnerKey" = "8:_D04486AEF9AF4C48BCF43E255C2EAB5B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_931CF0882091493BBAA94278409AD3B2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -81,19 +69,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_B247E89F40EF42E98E7BFA680A13EFFD"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_B5D936981F5F4A83A385FE06B05ED7EA"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_BD1F92AEC7044FE89374F9A0685F639E"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -125,12 +101,6 @@
         {
         "MsmKey" = "8:_D01E5ABE0E96C9A1D266077FAD6615CB"
         "OwnerKey" = "8:_E7B7F13CBDD30E084358FD6B80808E67"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D04486AEF9AF4C48BCF43E255C2EAB5B"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -214,12 +184,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_D04486AEF9AF4C48BCF43E255C2EAB5B"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_D01E5ABE0E96C9A1D266077FAD6615CB"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -274,12 +238,6 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9235EDF9343957784E0FBBFFB46B958C"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_176435B104444D0F80C65615D5CA8AB9"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -308,6 +266,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -568,62 +534,11 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_7AC36E37102946039AA0EA3E57079857"
-            {
-            "SourcePath" = "8:..\\..\\src\\ServiceRunner\\bin\\Release\\ServiceRunner.vshost.exe.config"
-            "TargetName" = "8:ServiceRunner.vshost.exe.config"
-            "Tag" = "8:"
-            "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9235EDF9343957784E0FBBFFB46B958C"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:TRUE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_9235EDF9343957784E0FBBFFB46B958C"
-                    {
-                    "Name" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.VisualStudio.HostingProcess.Utilities.Sync.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_931CF0882091493BBAA94278409AD3B2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:ServiceRunner, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:ServiceRunner, Version=1.0.3.0, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_931CF0882091493BBAA94278409AD3B2"
@@ -670,26 +585,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B247E89F40EF42E98E7BFA680A13EFFD"
-            {
-            "SourcePath" = "8:..\\..\\src\\ServiceRunner\\bin\\Release\\ServiceRunner.pdb"
-            "TargetName" = "8:ServiceRunner.pdb"
-            "Tag" = "8:"
-            "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_B5D936981F5F4A83A385FE06B05ED7EA"
             {
             "AssemblyRegister" = "3:1"
@@ -705,26 +600,6 @@
                 }
             "SourcePath" = "8:..\\..\\src\\ServiceRunner\\bin\\Release\\Topshelf.NLog.dll"
             "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_BD1F92AEC7044FE89374F9A0685F639E"
-            {
-            "SourcePath" = "8:..\\..\\src\\ServiceRunner\\bin\\Release\\ServiceRunner.vshost.exe.manifest"
-            "TargetName" = "8:ServiceRunner.vshost.exe.manifest"
             "Tag" = "8:"
             "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
             "Condition" = "8:"
@@ -841,37 +716,6 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_D04486AEF9AF4C48BCF43E255C2EAB5B"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:vshost32, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=x86"
-                "ScatterAssemblies"
-                {
-                    "_D04486AEF9AF4C48BCF43E255C2EAB5B"
-                    {
-                    "Name" = "8:ServiceRunner.vshost.exe"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:..\\..\\src\\ServiceRunner\\bin\\Release\\ServiceRunner.vshost.exe"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_26748FFF2287455791B9EC2436A1E1D4"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_DB55E423619D46849963C31234FB8881"
@@ -1105,15 +949,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:ServiceRunner"
-        "ProductCode" = "8:{05CFA8F7-B29B-41BD-B43F-40F2AEA2C06D}"
-        "PackageCode" = "8:{8BAA5EA3-0889-4810-ACC7-29FBB26F4E65}"
+        "ProductCode" = "8:{4E54A1EF-7DB1-489A-B20E-336EC1939D95}"
+        "PackageCode" = "8:{A0F4A4C5-AC22-4455-8613-FCEE22374777}"
         "UpgradeCode" = "8:{4D2E3D16-F1BA-46B9-B0B9-DF149E01E389}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:IntelSoft"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
